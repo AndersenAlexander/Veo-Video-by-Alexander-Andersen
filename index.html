@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Veo Video Generation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/genai": "https://esm.sh/@google/genai@^1.4.0"
+      }
+    }
+  </script>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Veo Video Generation</h1>
+        <p class="subtitle">Create stunning videos from text prompts and images.</p>
+        <div class="theme-switch-wrapper">
+          <label class="theme-switch" for="theme-toggle" title="Toggle dark mode">
+              <input type="checkbox" id="theme-toggle" />
+              <span class="slider round"></span>
+          </label>
+      </div>
+    </header>
+
+    <main>
+        <div class="form-section">
+            <label for="prompt-input">Prompt</label>
+            <textarea id="prompt-input" rows="4" placeholder="e.g., A majestic lion roaring on a rocky cliff at sunset"></textarea>
+        </div>
+
+        <div class="form-section presets-section">
+            <label>Or try one of these</label>
+            <div id="preset-prompts-container" class="preset-prompts">
+                <button class="preset-prompt" type="button">A futuristic cityscape at night, with flying cars</button>
+                <button class="preset-prompt" type="button">Close-up of a honeybee on a flower, slow motion</button>
+                <button class="preset-prompt" type="button">An animated dragon breathing fire over a castle</button>
+                <button class="preset-prompt" type="button">A robot chef clumsily trying to bake a cake</button>
+                <button class="preset-prompt" type="button">Astronaut floating in space, looking at Earth</button>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <label>Conditioning Image (Optional)</label>
+            <div class="file-upload-wrapper">
+                <input id="file-input" type="file" accept="image/*" />
+                <label for="file-input" class="file-upload-button" role="button" aria-label="Upload an image">
+                  <span>Choose File</span>
+                </label>
+                <span id="file-name" aria-live="polite">No file chosen</span>
+            </div>
+            <img alt="Condition image" id="img" />
+        </div>
+
+        <div class="settings-container">
+            <h2>Video Settings</h2>
+            <div class="settings-grid">
+                <div class="setting">
+                    <label for="aspect-ratio-select">Aspect Ratio</label>
+                    <select id="aspect-ratio-select">
+                        <option value="16:9" selected>16:9 (Widescreen)</option>
+                        <option value="9:16">9:16 (Vertical)</option>
+                        <option value="1:1">1:1 (Square)</option>
+                        <option value="4:3">4:3 (Standard)</option>
+                        <option value="3:4">3:4 (Portrait)</option>
+                    </select>
+                </div>
+                <div class="setting">
+                    <label for="duration-input">Duration (seconds)</label>
+                    <input id="duration-input" type="number" value="6" min="5" max="8" step="1" />
+                </div>
+                <div class="setting">
+                    <label for="quality-select">Quality</label>
+                    <select id="quality-select">
+                        <option value="standard" selected>Standard</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="setting">
+                    <label for="number-of-videos-select">Number of Videos</label>
+                    <select id="number-of-videos-select">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="generate-button">Generate Video</button>
+            <div id="status-container" role="status" aria-live="polite">
+                <div class="loader" id="loader"></div>
+                <p id="status">Ready.</p>
+            </div>
+        </div>
+
+        <div id="quota-error">
+            <p><strong>Quota Exceeded</strong></p>
+            <p>Veo is available with limited free generations per day for testing. To continue, please use your paid API key.</p>
+            <button id="open-key">Add Your API Key</button>
+        </div>
+
+        <div id="video-container">
+            <!-- Videos will be dynamically inserted here -->
+        </div>
+    </main>
+</div>
+<!-- The framework will auto-import index.tsx -->
+</body>
+</html>
